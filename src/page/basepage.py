@@ -1,9 +1,8 @@
 import logging
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
-from config.p_path import DRIVER_CHROM
-
-
+from config.p_path import DRIVER_CHROM,CONFIG_FILE
+from src.utils.read_file import YamlRead
 
 class BasePage(object):
 
@@ -20,9 +19,10 @@ class BasePage(object):
     #         self.driver.maximize_window()
     #     self.driver.implicitly_wait(implicitly_wait)
     #     return self
+    brower_url=YamlRead(CONFIG_FILE).read()['url']
 
-    def __init__(self,url):
-        self.url=url
+    def __init__(self):
+        self.url=self.brower_url
         self.driver=None
 
     def get(self,maximize_window=True, implicitly_wait=30,**kwargs):
@@ -55,6 +55,6 @@ class BasePage(object):
 
 
 if __name__=="__main__":
-    page=BasePage("http://192.168.8.62:8080/gas/dist/#/")
+    page=BasePage()
     page.get()
 
