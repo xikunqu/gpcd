@@ -31,7 +31,7 @@ class BasePage(object):
         if maximize_window:
             self.driver.maximize_window()
         self.driver.implicitly_wait(implicitly_wait)
-        return self.driver
+        return self
 
     def find_element(self,*loc):
         try:
@@ -47,14 +47,26 @@ class BasePage(object):
         except:
             logging.info("%s页面中未能找到%s元素" % (self, loc))
 
+    def get_cookies(self):
+        self.driver.get_cookies()
+
+    def add_cookie(self,cookie):
+        self.driver.add_cookie(cookie)
+
+    def refresh(self):
+        self.driver.refresh()
+
     def close(self):
         self.driver.close()
+
+    def get_url(self):
+        return self.driver.current_url
 
     def quit(self):
         self.driver.quit()
 
 
-if __name__=="__main__":
-    page=BasePage()
-    page.get()
+# if __name__=="__main__":
+#     page=BasePage()
+#     page.get()
 
